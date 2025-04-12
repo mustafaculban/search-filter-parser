@@ -1,0 +1,24 @@
+# Composer
+/vendor/
+/composer.lock
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDE / Editor configs
+.idea/
+.vscode/
+
+# Logs & temporary files
+*.log
+*.cache
+
+# PHPUnit
+phpunit.xml
+phpunit.xml.dist
+
+# Node (eğer frontend tarafı eklersen)
+node_modules/
+dist/
+.env

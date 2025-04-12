@@ -15,10 +15,12 @@
     }
   },
   "minimum-stability": "stable",
-  "require": {},
+  "require": {
+    "slim/psr7": "^1.7",
+    "slim/slim": "^4.0"
+  },
     "config": {
         "sort-packages": true
     },
-    "minimum-stability": "stable",
     "prefer-stable": true
 }
