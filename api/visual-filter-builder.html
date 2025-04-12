@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Advanced Visual Filter Builder</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #f9f9f9; }
+    .group { border: 2px dashed #ccc; padding: 1rem; margin-bottom: 1.5rem; background: #fff; }
+    .group-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .condition { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .condition input, .condition select { padding: 0.4rem; }
+    button { margin-top: 0.5rem; padding: 0.4rem 0.7rem; }
+    pre { background: #333; color: #eee; padding: 1rem; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h2>Visual Filter Builder (Advanced)</h2>
+
+  <div id="groups"></div>
+  <button onclick="addGroup()">+ Add Group</button>
+
+  <h3>Generated JSON:</h3>
+  
+  <h3>Generated JSON:</h3>
+  <pre id="output">Waiting for input...</pre>
+  <h3>SQL Response:</h3>
+  <pre id="sql-output">Waiting for API response...</pre>
+    
+
+  <script>
+    function addGroup() {
+      const groupId = `group-${Date.now()}`;
+      const group = document.createElement("div");
+      group.className = "group";
+      group.dataset.groupId = groupId;
+      group.innerHTML = `
+        <div class="group-header">
+          <strong>Group</strong>
+          <select class="group-operator">
+            <option value="and">AND</option>
+            <option value="or">OR</option>
+          </select>
+        </div>
+        <div class="conditions"></div>
+        <button onclick="addCondition(this)">+ Add Condition</button>
+      `;
+      document.getElementById("groups").appendChild(group);
+    }
+
+    function addCondition(button) {
+      const condition = document.createElement("div");
+      condition.className = "condition";
+      condition.innerHTML = `
+        <select class="field">
+          <option value="status">status</option>
+<option value="age">age</option>
+<option value="role">role</option>
+<option value="score">score</option>
+<option value="created_at">created_at</option>
+<option value="country">country</option>
+<option value="email">email</option>
+        </select>
+        <select class="operator">
+          <option value="is">is</option>
+<option value="is_not">is not</option>
+<option value="is_greater_than">greater than</option>
+<option value="is_greater_than_or_equal">greater than or equal</option>
+<option value="is_less_than">less than</option>
+<option value="is_less_than_or_equal">less than or equal</option>
+<option value="like">like</option>
+<option value="in">in</option>
+<option value="between">between</option>
+        </select>
+        <input class="value" type="text" placeholder="value" />
+      `;
+      const group = button.previousElementSibling;
+      group.appendChild(condition);
+    }
+
+    
+setInterval(() => {
+
+      const groups = Array.from(document.querySelectorAll(".group")).map(group => {
+        const operator = group.querySelector(".group-operator").value;
+        const conditions = Array.from(group.querySelectorAll(".condition")).map(cond => ({
+          field: cond.querySelector(".field").value,
+          operator: cond.querySelector(".operator").value,
+          value: cond.querySelector(".value").value
+        }));
+        return { operator, conditions };
+      });
+
+      const json = groups.length === 1
+        ? groups[0]
+        : { operator: "or", conditions: groups };
+
+      
+document.getElementById("output").textContent = JSON.stringify(json, null, 2);
+
+fetch("http://localhost:8000/parse-filters", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(json)
+})
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("sql-output").textContent = JSON.stringify(data, null, 2);
+  })
+  .catch(err => {
+    document.getElementById("sql-output").textContent = "Error contacting API: " + err;
+  });
+
+    }, 800);
+  </script>
+</body>
+</html>

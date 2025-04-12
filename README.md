@@ -10,6 +10,7 @@ Perfect for powering dynamic search forms, advanced filters, or building your ow
 - Clean and readable SQL output
 - No DB connection required — just parsing
 - PSR-4 namespaced under `DevJoys\Parser`
+- Includes visual filter builder UI for quick testing 🎨
 
 ## Installation
 
@@ -68,6 +69,28 @@ echo $sql;
 }
 ```
 
+## Try It with Slim API + Visual UI
+
+This package includes a working Slim API example and a browser-based visual filter builder!
+
+### Start Local API
+
+```bash
+php -S localhost:8000 -t vendor/mustafaculban/search-filter-parser/api
+```
+
+### Open the Visual Builder
+
+Open in your browser:
+
+```
+http://localhost:8000/visual-filter-builder.html
+```
+
+✅ Supports multiple groups  
+✅ Choose AND/OR logic  
+✅ Click "Get Generated SQL" to preview backend response live
+
 ## Supported Operators
 
 | Operator Key               | SQL Equivalent |
@@ -85,7 +108,7 @@ echo $sql;
 ## About
 
 This package is part of the **DevJoys** tool series — developer-focused tools built with simplicity and reusability in mind.  
-Stay tuned for follow-ups: a RESTful API, a visual builder, and more.
+Stay tuned for follow-ups: API enhancements, visual editor improvements, and more.
 
 ## License
 
