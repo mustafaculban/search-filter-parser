@@ -1,0 +1,24 @@
+{
+  "name": "mustafaculban/search-filter-parser",
+  "description": "A simple PHP parser that converts structured filters into SQL strings.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+        {
+            "name": "Mustafa Culban",
+            "email": "mustafaculban1@gmail.com"
+        }
+    ],
+  "autoload": {
+    "psr-4": {
+      "DevJoys\\Parser\\": "src/"
+    }
+  },
+  "minimum-stability": "stable",
+  "require": {},
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
