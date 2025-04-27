@@ -94,7 +94,7 @@ http://localhost:8000/visual-filter-builder.html
 ## Supported Operators
 
 | Operator Key               | SQL Equivalent |
-|----------------------------|----------------|
+| -------------------------- | -------------- |
 | `is`                       | `=`            |
 | `is_not`                   | `!=`           |
 | `is_greater_than`          | `>`            |
@@ -104,6 +104,28 @@ http://localhost:8000/visual-filter-builder.html
 | `like`                     | `LIKE`         |
 | `in`                       | `IN`           |
 | `between`                  | `BETWEEN`      |
+
+## 🐳 Running Locally with Docker
+
+Want to run the Slim API locally without any setup?
+
+Use Docker!
+
+```bash
+docker-compose up --build
+```
+
+The Slim API will be available at:
+
+```bash
+http://localhost:8080
+```
+
+You can POST to /parse-filters endpoint or open the visual filter builder:
+
+```bash
+http://localhost:8080/visual-filter-builder.html
+```
 
 ## About
 
